@@ -122,7 +122,7 @@ func insertEntry(db *sql.DB, entry basicEntry) error {
 	if err != nil {
 		return err
 	}
-	st, err = tx.Prepare(`INSERT INTO history
+	st, err = tx.Prepare(`INSERT OR IGNORE INTO history
 	(session, command_id, place_id, exit_status, start_time, duration)
 	SELECT ?, commands.rowid, places.rowid, ?, ?, ?
 	FROM commands, places
